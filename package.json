@@ -2,11 +2,22 @@
   "name": "@carreralink/common",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "del-cli ./build/*",
+    "build": "concurrently \"npm run clean\" \"npx tsc\"",
+    "publish": "concurrently \"git add . && git commit -m 'Updates'\" \"npm version patch\" \"npm run build\" \"npm publish\""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "del-cli": "^5.1.0",
+    "typescript": "^5.4.2"
+  }
 }
