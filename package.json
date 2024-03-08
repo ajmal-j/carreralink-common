@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "clean": "del-cli ./build/*",
-    "build": "concurrently \"git add . \" \"git commit -m 'Updates'\" \"npm version patch\" \"npm run clean\" \"npx tsc\""
+    "build": "concurrently \"npm version patch\" \"npm run clean\" \"npx tsc\""
   },
   "keywords": [],
   "author": "",
