@@ -1,15 +1,8 @@
-interface Color {
-  red: number;
-  green: number;
-  blue: number;
-}
+export * from "./utils/express-callback";
+export * from "./utils/express-response";
+export * from "./utils/validateBody";
+export * from "./utils/token";
 
-const color: Color = {
-  red: 10,
-  green: 200,
-  blue: 30,
-};
-
-console.log(color);
-
-export default color;
+export * from "./errorHandler";
+export * from "./middlewares/error.middleware";
+export * from "./middlewares/verifyUser.middleware";
