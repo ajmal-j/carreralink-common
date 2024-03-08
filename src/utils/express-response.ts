@@ -32,6 +32,9 @@ export class CustomResponse implements IResponse {
     return this;
   }
   data(data: Object | string): CustomResponse {
+    if (typeof data === "object" && "password" in data)
+      delete (data as any).password;
+    
     this._data = data;
     return this;
   }
