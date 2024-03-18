@@ -17,7 +17,7 @@ export interface CustomResponseType {
     name: string;
     val: string;
     options: CookieOptions;
-  };
+  } | null;
 }
 
 export class CustomResponse implements IResponse {
@@ -25,11 +25,11 @@ export class CustomResponse implements IResponse {
   private _headers: Object = {};
   private _message: string = "";
   private _data: Object | string = "";
-  private _cookie: { name: string; val: string; options: CookieOptions } = {
-    name: "",
-    val: "",
-    options: {},
-  };
+  private _cookie: {
+    name: string;
+    val: string;
+    options: CookieOptions;
+  } | null = null;
 
   statusCode(statusCode: number): CustomResponse {
     this._statusCode = statusCode;
@@ -65,5 +65,3 @@ export class CustomResponse implements IResponse {
     };
   }
 }
-
-const sample = new CustomResponse();
