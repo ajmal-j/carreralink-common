@@ -1,12 +1,16 @@
 import jwt, { JsonWebTokenError } from "jsonwebtoken";
 import { UnauthorizedError } from "../errorHandler";
 
-export const generateToken = (data: Object, secret: string): string => {
+const generateToken = (data: Object): string => {
+  const secret = process.env.JWT_SECRET as string;
+
   if (!secret) throw new Error("JWT_SECRET is missing");
   return jwt.sign(data, secret, { expiresIn: "30d" });
 };
 
-export const decodeToken = (token: string, secret: string): Object => {
+const decodeToken = (token: string): Object => {
+  const secret = process.env.JWT_SECRET as string;
+
   if (!secret) throw new Error("JWT_SECRET is missing");
   try {
     const data = token.split(" ")[1];
@@ -17,3 +21,5 @@ export const decodeToken = (token: string, secret: string): Object => {
     } else throw error;
   }
 };
+
+export { generateToken, decodeToken };
