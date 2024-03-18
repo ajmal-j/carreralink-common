@@ -1,3 +1,5 @@
+import { CookieOptions } from "express";
+
 export interface IResponse {
   statusCode(statusCode: number): CustomResponse;
   headers(headers: Object): CustomResponse;
@@ -11,6 +13,11 @@ export interface CustomResponseType {
   headers: Object;
   message: string;
   data: Object | string;
+  cookie: {
+    name: string;
+    val: string;
+    options: CookieOptions;
+  };
 }
 
 export class CustomResponse implements IResponse {
@@ -18,6 +25,11 @@ export class CustomResponse implements IResponse {
   private _headers: Object = {};
   private _message: string = "";
   private _data: Object | string = "";
+  private _cookie: { name: string; val: string; options: CookieOptions } = {
+    name: "",
+    val: "",
+    options: {},
+  };
 
   statusCode(statusCode: number): CustomResponse {
     this._statusCode = statusCode;
@@ -27,14 +39,19 @@ export class CustomResponse implements IResponse {
     this._headers = headers;
     return this;
   }
+
   message(message: string): CustomResponse {
     this._message = message;
+    return this;
+  }
+  cookie(name: string, val: string, options: CookieOptions): CustomResponse {
+    this._cookie = { name, val, options };
     return this;
   }
   data(data: Object | string): CustomResponse {
     if (typeof data === "object" && "password" in data)
       delete (data as any).password;
-    
+
     this._data = data;
     return this;
   }
@@ -44,6 +61,9 @@ export class CustomResponse implements IResponse {
       headers: this._headers,
       message: this._message,
       data: this._data,
+      cookie: this._cookie,
     };
   }
 }
+
+const sample = new CustomResponse();
