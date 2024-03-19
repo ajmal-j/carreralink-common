@@ -19,7 +19,7 @@ export const VerifyUser = async (
 
 
 
-      ${req.headers}
+      ${(req.headers, companyToken)}
       
       --------------------------------------------------------
       
