@@ -9,7 +9,29 @@ export const VerifyUser = async (
 ) => {
   try {
     const token = req?.headers?.authorization;
-    const companyToken = req?.headers?.CompanyToken;
+    const companyToken =
+      req?.cookies?.companyToken || req?.headers?.companyToken;
+    console.log(`
+
+      --------------------------------------------------------
+
+
+
+
+
+      ${req.headers}
+      
+      --------------------------------------------------------
+      
+      ${req.cookies}
+      
+      
+      
+      
+      
+      
+      
+      --------------------------------------------------------`);
     if (!token && !companyToken) throw new NotFoundError("Token Not Found");
 
     const userData = await decodeToken(token as string);
