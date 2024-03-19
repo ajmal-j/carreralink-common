@@ -10,7 +10,7 @@ const generateToken = (data: Object): string => {
 
 const decodeToken = (token: string): Object => {
   const secret = process.env.JWT_SECRET as string;
-
+  if (!token) return {};
   if (!secret) throw new Error("JWT_SECRET is missing");
   try {
     const data = token.split(" ")[1];
