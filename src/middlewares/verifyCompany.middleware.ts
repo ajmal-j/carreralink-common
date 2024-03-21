@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { NotFoundError } from "../errorHandler";
 import { decodeToken } from "../utils/token";
 
-export const VerifyUser = async (
+export const VerifyCompany = async (
   req: Request,
   res: Response,
   next: NextFunction
