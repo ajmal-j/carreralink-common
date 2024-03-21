@@ -8,19 +8,14 @@ export const VerifyUser = async (
   next: NextFunction
 ) => {
   try {
-    const token = req?.headers?.authorization;
-    const companyToken =
-      req?.cookies?.companyToken || req?.headers?.companytoken;
-
-    if (!token && !companyToken) throw new NotFoundError("Token Not Found");
+    const token = req?.cookies?.userToken || req?.headers?.authorization;
+    if (!token) throw new NotFoundError("Token Not Found");
 
     const userData = await decodeToken(token as string);
-    const companyData = await decodeToken(companyToken as string);
 
-    if (!userData && !companyData) throw new NotFoundError("Invalid Token");
+    if (!userData) throw new NotFoundError("Invalid Token");
 
     (req as any).user = userData;
-    (req as any).companyData = companyData;
 
     next();
   } catch (error) {
