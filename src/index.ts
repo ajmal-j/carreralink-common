@@ -6,3 +6,4 @@ export * from "./errorHandler";
 export * from "./middlewares/error.middleware";
 export * from "./middlewares/verifyUser.middleware";
 export * from "./middlewares/verifyCompany.middleware";
+export * from "./middlewares/verifyAdmin.middleware";
