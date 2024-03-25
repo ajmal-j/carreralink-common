@@ -1,5 +1,5 @@
 import jwt, { JsonWebTokenError } from "jsonwebtoken";
-import { UnauthorizedError } from "../errorHandler";
+import { BadRequestError } from "../errorHandler";
 
 const generateToken = (data: Object): string => {
   const secret = process.env.JWT_SECRET as string;
@@ -17,7 +17,7 @@ const decodeToken = (token: string): Object => {
     return jwt.verify(data, secret);
   } catch (error) {
     if (error instanceof JsonWebTokenError) {
-      throw new UnauthorizedError("Invalid Token");
+      throw new BadRequestError("Invalid Token");
     } else throw error;
   }
 };
