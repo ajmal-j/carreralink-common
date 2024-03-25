@@ -7,14 +7,17 @@ export function expressCallback(controller: Function) {
   return async (req: Request, res: Response) => {
     try {
       const response = (await controller(req)) as CustomResponseType;
-      if (response.cookie) {
+      if (response?.cookie) {
         res.cookie(
           response.cookie.name,
           response.cookie.val,
           response.cookie.options
         );
       }
-      res.status(response.statusCode).header(response.headers).json({
+      if (response?.deleteCookie) {
+        res.clearCookie(response.deleteCookie);
+      }
+      res.status(response?.statusCode).header(response?.headers).json({
         success: true,
         message: response.message,
         data: response.data,

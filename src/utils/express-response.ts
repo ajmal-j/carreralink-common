@@ -13,6 +13,7 @@ export interface CustomResponseType {
   headers: Object;
   message: string;
   data: Object | string;
+  deleteCookie: string;
   cookie: {
     name: string;
     val: string;
@@ -25,6 +26,7 @@ export class CustomResponse implements IResponse {
   private _headers: Object = {};
   private _message: string = "";
   private _data: Object | string = "";
+  private _deleteCookie: string = "";
   private _cookie: {
     name: string;
     val: string;
@@ -48,6 +50,10 @@ export class CustomResponse implements IResponse {
     this._cookie = { name, val, options };
     return this;
   }
+  deleteCookie(name: string): CustomResponse {
+    this._deleteCookie = name;
+    return this;
+  }
   data(data: Object | string): CustomResponse {
     if (typeof data === "object" && "password" in data)
       delete (data as any).password;
@@ -62,6 +68,7 @@ export class CustomResponse implements IResponse {
       message: this._message,
       data: this._data,
       cookie: this._cookie,
+      deleteCookie: this._deleteCookie,
     };
   }
 }
