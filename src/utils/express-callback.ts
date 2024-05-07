@@ -4,7 +4,8 @@ import { CustomError } from "../errorHandler";
 import { ZodError } from "zod";
 
 export function expressCallback(controller: Function) {
-  return async (req: Request, res: Response) => {
+  return async (error: Error, req: Request, res: Response) => {
+    if (error) throw error;
     try {
       const response = (await controller(req)) as CustomResponseType;
       if (response?.cookie) {
